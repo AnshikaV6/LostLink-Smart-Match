@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LostLink Smart Match - Find Your Lost Items</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-icon">🔍</span>
+        <div class="logo-text">
+          <h1>LostLink</h1>
+          <p>Smart Match</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a>
+        <a href="#report-lost" class="nav-link" data-section="report-lost">Report Lost</a>
+        <a href="#report-found" class="nav-link" data-section="report-found">Report Found</a>
+        <a href="#matches" class="nav-link" data-section="matches">Matches</a>
+        <a href="#my-reports" class="nav-link" data-section="my-reports">My Reports</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section active">
+      <div class="section-container">
+        <div class="section-header">
+          <div>
+            <span class="section-label">Welcome to</span>
+            <h2>LostLink Smart Match</h2>
+            <p class="section-subtitle">Find your lost belongings or help others find theirs</p>
+          </div>
+          <div class="header-actions">
+            <button id="load-sample-btn" class="btn btn-secondary">📚 Load Sample Data</button>
+            <button id="reset-data-btn" class="btn btn-danger">🔄 Reset All Data</button>
+          </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <div class="stat-content">
+              <h3 id="stat-lost-count">0</h3>
+              <p>Lost Items</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-content">
+              <h3 id="stat-found-count">0</h3>
+              <p>Found Items</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-content">
+              <h3 id="stat-match-count">0</h3>
+              <p>Potential Matches</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Call-to-Action Buttons -->
+        <div class="cta-buttons">
+          <button class="btn btn-primary btn-large" data-navigate="report-lost">
+            <span>➕</span> Report a Lost Item
+          </button>
+          <button class="btn btn-success btn-large" data-navigate="report-found">
+            <span>➕</span> Report a Found Item
+          </button>
+        </div>
+
+        <!-- Recently Reported Items -->
+        <div class="recent-section">
+          <h3>📋 Recently Reported Items</h3>
+          <div id="recent-items-grid" class="items-grid">
+            <div class="empty-state">No items reported yet. Start by reporting a lost or found item!</div>
+          </div>
+        </div>
+
+        <!-- Privacy Notice -->
+        <div class="info-banner">
+          <strong>ℹ️ Privacy & Safety Notice:</strong> This is a local browser-based prototype. All data is stored only in your browser using localStorage and is not connected to any real college or institutional database. Contact information is kept private by default and only displayed when you choose to share it.
+        </div>
+      </div>
+    </section>
+
+    <!-- Report Lost Item Section -->
+    <section id="report-lost" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <div>
+            <span class="section-label">Report</span>
+            <h2>Report a Lost Item</h2>
+            <p class="section-subtitle">Tell us about the item you've lost. We'll help you find it!</p>
+          </div>
+        </div>
+
+        <form id="lost-form" class="item-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lost-item-name">Item Name *</label>
+              <input
+                id="lost-item-name"
+                type="text"
+                name="itemName"
+                placeholder="e.g., Blue Backpack, Black Wallet"
+                required
+              />
+              <span class="error-message" id="error-lost-itemName"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="lost-category">Category *</label>
+              <select id="lost-category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="Bag">Bag</option>
+                <option value="Wallet">Wallet</option>
+                <option value="Keys">Keys</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Jewelry">Jewelry</option>
+                <option value="Shoes">Shoes</option>
+                <option value="Sports Equipment">Sports Equipment</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="error-message" id="error-lost-category"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lost-colour">Colour *</label>
+              <input
+                id="lost-colour"
+                type="text"
+                name="colour"
+                placeholder="e.g., Blue, black with white straps"
+                required
+              />
+              <span class="error-message" id="error-lost-colour"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="lost-location">Location Lost *</label>
+              <input
+                id="lost-location"
+                type="text"
+                name="location"
+                placeholder="e.g., Library, Building A, Cafeteria"
+                required
+              />
+              <span class="error-message" id="error-lost-location"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lost-date">Date Lost *</label>
+              <input id="lost-date" type="date" name="date" required />
+              <span class="error-message" id="error-lost-date"></span>
+            </div>
+
+            <div class="form-group"></div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="lost-description">Detailed Description *</label>
+            <textarea
+              id="lost-description"
+              name="description"
+              rows="5"
+              placeholder="Describe distinctive features, brand, size, markings, condition, etc."
+              required
+            ></textarea>
+            <span class="error-message" id="error-lost-description"></span>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="lost-image">Upload Image (Optional)</label>
+            <input id="lost-image" type="file" name="image" accept="image/*" />
+            <p class="form-hint">Helps with identification. Accepted formats: JPG, PNG, GIF</p>
+            <div id="lost-image-preview" class="image-preview empty-preview">No image selected</div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="lost-contact">Contact Information (Optional)</label>
+            <input
+              id="lost-contact"
+              type="text"
+              name="contact"
+              placeholder="Email or phone number (kept private by default)"
+            />
+            <div class="checkbox-group">
+              <input id="lost-show-contact" type="checkbox" name="showContact" />
+              <label for="lost-show-contact">Allow others to see my contact info in match details</label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">✅ Report Lost Item</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Report Found Item Section -->
+    <section id="report-found" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <div>
+            <span class="section-label">Report</span>
+            <h2>Report a Found Item</h2>
+            <p class="section-subtitle">You found something? Help us return it to its owner!</p>
+          </div>
+        </div>
+
+        <form id="found-form" class="item-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="found-item-name">Item Name *</label>
+              <input
+                id="found-item-name"
+                type="text"
+                name="itemName"
+                placeholder="e.g., Black Wallet, Silver Keys"
+                required
+              />
+              <span class="error-message" id="error-found-itemName"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="found-category">Category *</label>
+              <select id="found-category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="Bag">Bag</option>
+                <option value="Wallet">Wallet</option>
+                <option value="Keys">Keys</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Jewelry">Jewelry</option>
+                <option value="Shoes">Shoes</option>
+                <option value="Sports Equipment">Sports Equipment</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="error-message" id="error-found-category"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="found-colour">Colour *</label>
+              <input
+                id="found-colour"
+                type="text"
+                name="colour"
+                placeholder="e.g., Black, silver and blue"
+                required
+              />
+              <span class="error-message" id="error-found-colour"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="found-location">Location Found *</label>
+              <input
+                id="found-location"
+                type="text"
+                name="location"
+                placeholder="e.g., Student Center, Library table 5"
+                required
+              />
+              <span class="error-message" id="error-found-location"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="found-date">Date Found *</label>
+              <input id="found-date" type="date" name="date" required />
+              <span class="error-message" id="error-found-date"></span>
+            </div>
+
+            <div class="form-group"></div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="found-description">Description *</label>
+            <textarea
+              id="found-description"
+              name="description"
+              rows="5"
+              placeholder="Describe the item's condition, any markings, contents, or distinctive features."
+              required
+            ></textarea>
+            <span class="error-message" id="error-found-description"></span>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="found-image">Upload Image (Optional)</label>
+            <input id="found-image" type="file" name="image" accept="image/*" />
+            <p class="form-hint">Helps owners identify their item. Accepted formats: JPG, PNG, GIF</p>
+            <div id="found-image-preview" class="image-preview empty-preview">No image selected</div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="found-contact">Your Contact Information (Optional)</label>
+            <input
+              id="found-contact"
+              type="text"
+              name="contact"
+              placeholder="Email or phone number (so owners can reach you)"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-success btn-block">✅ Report Found Item</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Matches Section -->
+    <section id="matches" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <div>
+            <span class="section-label">Smart Matching</span>
+            <h2>Potential Matches</h2>
+            <p class="section-subtitle">Items that might be connected based on similarity</p>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-section">
+          <div class="filter-group">
+            <input
+              id="match-search"
+              type="text"
+              class="search-input"
+              placeholder="🔍 Search by item name or category..."
+            />
+          </div>
+
+          <div class="filter-group">
+            <select id="match-category-filter" class="filter-select">
+              <option value="">All Categories</option>
+              <option value="Bag">Bag</option>
+              <option value="Wallet">Wallet</option>
+              <option value="Keys">Keys</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Jewelry">Jewelry</option>
+              <option value="Shoes">Shoes</option>
+              <option value="Sports Equipment">Sports Equipment</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <select id="match-quality-filter" class="filter-select">
+              <option value="">All Match Levels</option>
+              <option value="high">High potential match (70-100%)</option>
+              <option value="medium">Possible match (40-69%)</option>
+              <option value="low">Low similarity (0-39%)</option>
+            </select>
+          </div>
+
+          <button id="clear-filters-btn" class="btn btn-secondary">Clear Filters</button>
+        </div>
+
+        <!-- Matches Container -->
+        <div id="matches-container" class="matches-container">
+          <div class="empty-state">No matches found yet. Report items to start seeing potential matches!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Reports Section -->
+    <section id="my-reports" class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <div>
+            <span class="section-label">Manage</span>
+            <h2>My Reports</h2>
+            <p class="section-subtitle">View, edit, and manage your lost and found reports</p>
+          </div>
+        </div>
+
+        <!-- Report Tabs -->
+        <div class="tab-container">
+          <button class="tab-btn active" data-filter="all">All Reports</button>
+          <button class="tab-btn" data-filter="lost">Lost Items</button>
+          <button class="tab-btn" data-filter="found">Found Items</button>
+          <button class="tab-btn" data-filter="recovered">Recovered/Returned</button>
+        </div>
+
+        <!-- Reports Grid -->
+        <div id="reports-container" class="items-grid">
+          <div class="empty-state">You haven't reported any items yet.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Match Detail Modal -->
+  <div id="match-modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="close-match-modal">&times;</button>
+      <div id="match-modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Report Detail Modal -->
+  <div id="report-modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="close-report-modal">&times;</button>
+      <div id="report-modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-notification" class="toast hidden"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2024 LostLink Smart Match. A browser-based prototype for finding lost belongings.</p>
+      <p class="footer-note">This application works entirely in your browser. No data is sent to external servers.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
