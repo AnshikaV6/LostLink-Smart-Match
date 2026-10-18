@@ -89,4 +89,4 @@ Built with AI-assisted development (GitHub Copilot). I wrote the project require
 - Add an admin dashboard
 
 ## Author
-Anshika | Computer Science and Engineering student
+Anshika Vishwakarma | Computer Science and Engineering student
