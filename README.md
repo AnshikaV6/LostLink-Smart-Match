@@ -58,7 +58,7 @@ The score only shows how similar two reports are. It is **not proof of ownership
 ## How to run
 1. Download or clone the repository:
 
-       git clone https://github.com/yourusername/lostlink-smart-match.git
+       git clone https://github.com/AnshikaV6/lostlink-smart-match.git
 
 2. Open the project folder.
 3. Double-click `index.html` to open it in your browser (Chrome, Edge or Firefox).
